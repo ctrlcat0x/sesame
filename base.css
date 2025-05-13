@@ -1,0 +1,386 @@
+/*
+  Sesame Base Styles
+  Version: 1.0.0 (Initial Release)
+  Author: [Your Name/Project Name]
+  License: MIT (Example)
+  Repository: [Link to your GitHub repo]
+
+  Includes:
+  - A robust universal reset
+  - CSS Custom Properties (Variables) for easy customization
+  - Base styles for common HTML elements
+  - Responsive typography adjustments
+
+  Users can override variables in their own CSS file linked after this one.
+*/
+
+/* --- 1. Universal Reset & Base Box-Sizing --- */
+/* Apply margin, padding, and box-sizing reset to all elements for a consistent base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Include padding and border in element's total size */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+/* Optional: Smooth scrolling behavior and custom scrollbar styles */
+/* Applied to all elements, adjust if you only want this on body or specific containers */
+* {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  /* Uses variables defined below for scrollbar color */
+  scrollbar-color: var(--primary-color) var(--back-color);
+}
+
+/* --- 2. CSS Variables (Design Tokens) --- */
+/*
+  Define your color palette, spacing, typography defaults, etc. here.
+  These serve as default values. Users can easily override these in their
+  own stylesheet linked *after* sesame-base.css by redefining
+  these variables within a :root or body selector.
+*/
+:root {
+  /* Colors */
+  --back-color: #0e1011; /* Default: Dark background */
+  --text-color: #dedede; /* Default: Light text */
+  --primary-color: #ff7b00; /* Default: Accent/Primary color (Orange) */
+  --accent: #1f1f1f; /* Default: Dark accent for borders, etc. */
+  --selection-back: var(--primary-color); /* Default selection background */
+  --selection-text: var(--back-color); /* Default selection text color */
+
+  /* Spacing */
+  --gap-xs: 0.5rem; /* Extra small spacing */
+  --gap: 1rem; /* Default: Standard spacing unit */
+  --gap-big: 1.5rem; /* Default: Larger spacing unit */
+  --gap-xl: 2rem; /* Extra large spacing */
+
+  /* Borders & Radii */
+  --border-thin: 1px var(--accent) solid; /* Thin border style */
+  --border: 2px var(--accent) solid; /* Default: Standard border style */
+  --border-thick: 3px var(--accent) solid; /* Thick border style */
+  --corner-radius-small: 0.25rem; /* Small corner radius */
+  --corner-radius: 2rem; /* Default: Large corner radius */
+
+  /* Typography - Base */
+  /*
+    Define base font properties here. Users can override these variables.
+    --base-font-size defined here will be the base for 'rem' units,
+    adjusted by media queries below.
+  */
+  --base-font-size: 12px;
+  --font-family: "Plus Jakarta Sans", sans-serif;
+  --font-weight: 800;
+  --line-height: 1.5; /* Generally better for readability than 1.2 */
+
+  /* Apply the base font size variable to the root html element */
+  font-size: var(--base-font-size);
+}
+
+/* --- 3. Selection Styles --- */
+/* Style text selection appearance using defined variables */
+::-moz-selection {
+  color: var(--selection-text);
+  background: var(--selection-back);
+}
+
+::selection {
+  color: var(--selection-text);
+  background: var(--selection-back);
+}
+
+/* --- 4. Base Element Styling & Typography --- */
+
+html {
+  /* Correct the line height and prevent adjustments of font size in iOS */
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh; /* Ensure body takes at least full viewport height */
+  width: 100%;
+  background-color: var(--back-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+
+  /* Inherit typography from :root variables */
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased; /* Improve text rendering */
+}
+
+/* Render the `main` element consistently */
+main {
+  display: block;
+}
+
+/* Improve text wrapping for paragraphs and headings */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word; /* Prevents text overflow */
+  text-wrap: pretty;
+}
+
+h1 {
+  /* Resetting default h1 margin/font-size from normalize/browser */
+  font-size: 2rem; /* Example: scale based on root font size */
+  margin-block: var(--gap); /* Example: add vertical margin using variable */
+}
+/* Add base styles for other headings (h2-h6) if needed */
+
+section {
+  min-height: 100vh;
+  padding: var(--gap-big); /* Use the defined variable for padding */
+  background-color: var(--back-color);
+  color: var(--text-color);
+}
+
+li {
+  list-style: none; /* Remove default list bullets */
+  text-decoration: none; /* Remove default text decoration */
+}
+
+a {
+  color: inherit; /* Links inherit color from their parent */
+  text-decoration: none; /* Remove default underline */
+  background-color: transparent; /* Remove the gray background on active links in IE 10 */
+}
+
+hr {
+  margin-block: var(--gap); /* Use variable for vertical margin */
+  border: none;
+  border-top: var(--border); /* Use variable for border style */
+  color: var(
+    --accent
+  ); /* Use variable for color (used by some browsers for border) */
+  height: 0; /* Correct height */
+  overflow: visible; /* Show overflow */
+}
+
+/* Correct the inheritance and scaling of font size for code elements */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; /* Relative to parent font size */
+}
+
+/* Add the correct font size for small text */
+small {
+  font-size: 80%;
+}
+
+/* Style for abbreviations with titles */
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+
+/* Add the correct font weight */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/* Prevent sub and sup elements from affecting the line height */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* --- 5. Embedded Content --- */
+/* Make images and other media easier to work with and responsive */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block; /* Prevents extra space below inline elements */
+  max-width: 100%; /* Ensures media doesn't overflow its container */
+  height: auto; /* Maintain aspect ratio */
+  border-style: none; /* Remove border on images inside links in IE 10 */
+}
+
+/* --- 6. Forms --- */
+/* Comprehensive resets and base styles for form elements */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit; /* Inherit font styles from parent */
+  margin: 0; /* Remove default margin */
+  line-height: 1.15; /* Correct line height */
+}
+
+/* Show the overflow in IE and Edge */
+button,
+input {
+  overflow: visible;
+}
+
+/* Remove the inheritance of text transform */
+button,
+select {
+  text-transform: none;
+}
+
+/* Correct the inability to style clickable types in iOS and Safari */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+/* Remove the inner border and padding in Firefox */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/* Restore the focus styles unset by the previous rule */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/* Correct the padding in Firefox */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/* Style and correct behavior for legend elements */
+legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+/* Add the correct vertical alignment for progress bars */
+progress {
+  vertical-align: baseline;
+}
+
+/* Remove the default vertical scrollbar in IE 10+ */
+textarea {
+  overflow: auto;
+}
+
+/* Correct box sizing and remove padding for checkboxes and radio buttons */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Correct the cursor style of increment and decrement buttons in Chrome */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/* Correct the odd appearance and outline style for search inputs */
+[type="search"] {
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  outline: none; /* Remove default outline */
+  outline-offset: -2px;
+}
+
+/* Remove the inner padding in Chrome and Safari on macOS */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* Correct the inability to style clickable types and change font properties for file inputs */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+/* --- 7. Interactive Elements --- */
+/* Add the correct display for details and summary elements */
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+/* --- 8. Misc --- */
+/* Add the correct display for template and hidden elements */
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+/* --- 9. Responsive Typography (Media Queries) --- */
+/*
+  Adjust the --base-font-size variable based on breakpoints.
+  This scales all 'rem' units used throughout the CSS.
+  Customize breakpoints and font sizes as needed.
+*/
+@media screen and (min-width: 512px) and (max-width: 768px) {
+  :root {
+    --base-font-size: 14px; /* Slightly larger base font size for tablets */
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --base-font-size: 16px; /* Standard base font size for desktops */
+  }
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 511px) {
+  :root {
+    --base-font-size: 10px; /* Smaller base font size for very small mobile screens */
+  }
+  section {
+    padding: var(--gap);
+  }
+}
+
+/* --- 10. Other Media Query Examples --- */
+/* Example: Adjust container margin on smaller screens */
+@media screen and (max-width: 768px) {
+  .container {
+    margin-inline: var(--gap); /* Use variable for margin */
+  }
+}
